@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group name="pstheatre">
+            <file>file:/home/dostojic/Documents/netbeans8/pstheatre/theatreserver/nbproject/project.properties</file>
+        </group>
+        <group name="swing-theatre">
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/controller/Controller.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/so/login/LoginSO.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/ClientThread.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/InformTicketStatus.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/so/GenericSO.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/ThreadInformTicketReserved.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/db.properties</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/StartServerThread.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/db/Database.java</file>
+            <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/FServer.java</file>
+        </group>
+    </open-files>
+</project-private>
