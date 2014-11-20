@@ -47,10 +47,10 @@ public class LoginController {
 
                     FMain.getInstance().setVisible(true);
                 } else {
-                    throw new Exception("Pogrešno korisničko ime, ili lizinka");
+                    JOptionPane.showMessageDialog(dialog, "Pogrešno korisničko ime, ili lizinka!", "Greška!", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
-                throw new Exception(sto.getMessage() != null ?sto.getMessage().toString() : "Greška");
+                JOptionPane.showMessageDialog(dialog, sto.getMessage() != null ?sto.getMessage().toString() : "Greška", "Greška!", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
