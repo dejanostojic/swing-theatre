@@ -108,6 +108,19 @@ public class ClientThread extends Thread {
                                 Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
                             }
                             break;
+
+                        case Constants.GET_ARTISTS_BY_NAME:
+                            try {
+                                List<Artist> artists = Controller.getInstance().getArtistsByName((String[]) cto.getData());
+                                sto.setData(artists);
+                                sto.setOperationSucess(true);
+                                sto.setMessage("Uspešno su vraćeni umetnici");
+                            } catch (Exception ex) {
+                                sto.setOperationSucess(false);
+                                sto.setMessage("Greška pri vraćanju umetnika");
+                                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            break;
                             
                         case Constants.UPDATE_ARTIST:
                             try {
@@ -146,9 +159,50 @@ public class ClientThread extends Thread {
                             }
                             break;
                             
+                        case Constants.UPDATE_PLAY_AND_ARTISTS:
+                            dataArray = (Object[]) cto.getData();
+                            try {
+                                Controller.getInstance().update((Play) dataArray[0], (List<ArtistPlayX>) dataArray[1]);
+                                sto.setOperationSucess(true);
+                                sto.setMessage("Predstava uspešno sačuvana.");
+                            } catch (Exception ex) {
+                                sto.setOperationSucess(false);
+                                sto.setMessage("Greška pri čuvanju predstave.");
+                                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            break;
+                            
                         case Constants.GET_PLAYS:
                             try {
                                 List<Play> plays = Controller.getInstance().getPlays();
+                                sto.setData(plays);
+                                sto.setOperationSucess(true);
+                                sto.setMessage("Uspešno su vraćene predstave");
+                            } catch (Exception ex) {
+                                sto.setOperationSucess(false);
+                                sto.setMessage("Greška pri vraćanju predstava");
+                                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            break;
+                            
+                        case Constants.GET_PLAYS_BY_NAME:
+                            try {
+                                
+                                List<Play> plays = Controller.getInstance().getPlaysByName(((String) cto.getData()));
+                                sto.setData(plays);
+                                sto.setOperationSucess(true);
+                                sto.setMessage("Uspešno su vraćene predstave");
+                            } catch (Exception ex) {
+                                sto.setOperationSucess(false);
+                                sto.setMessage("Greška pri vraćanju predstava");
+                                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            break;
+                            
+                        case Constants.GET_PLAYS_FOR_STAGE:
+                            try {
+                                
+                                List<Play> plays = Controller.getInstance().getPlays(((Stage) cto.getData()));
                                 sto.setData(plays);
                                 sto.setOperationSucess(true);
                                 sto.setMessage("Uspešno su vraćene predstave");
@@ -214,6 +268,20 @@ public class ClientThread extends Thread {
                         case Constants.GET_PERFORMANCES:
                             try {
                                 List<Performance> perfs = Controller.getInstance().getPerformances();
+                                sto.setData(perfs);
+                                sto.setOperationSucess(true);
+                                sto.setMessage("Uspešno su vraćene predstave");
+                            } catch (Exception ex) {
+                                sto.setOperationSucess(false);
+                                sto.setMessage("Greška pri vraćanju predstava");
+                                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            break;
+                            
+                        case Constants.GET_PERFORMANCES_FOR_PLAY_STAGE:
+                            try {
+                                Object[] data = (Object[]) cto.getData();
+                                List<Performance> perfs = Controller.getInstance().getPerformances((Play) data[0], (Stage) data[1]);
                                 sto.setData(perfs);
                                 sto.setOperationSucess(true);
                                 sto.setMessage("Uspešno su vraćene predstave");

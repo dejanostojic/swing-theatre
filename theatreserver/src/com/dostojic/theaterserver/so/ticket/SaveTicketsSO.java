@@ -25,7 +25,7 @@ public class SaveTicketsSO extends GenericSO{
         Set<Ticket> tickets = (Set<Ticket>) args[0];
         Iterator<Ticket> it = tickets.iterator();
         while (it.hasNext()){
-            TicketDao.getInstance().update(it.next());
+            TicketDao.getInstance().updateOrInsert(it.next());
         }
     }
     

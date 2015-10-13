@@ -17,17 +17,22 @@ import com.dostojic.theaterserver.server.ClientThread;
 import com.dostojic.theaterserver.server.InformTicketStatus;
 import com.dostojic.theaterserver.server.ThreadInformTicketReserved;
 import com.dostojic.theaterserver.so.artist.DeleteArtistSO;
+import com.dostojic.theaterserver.so.artist.GetArtistsByNameSO;
 import com.dostojic.theaterserver.so.artist.GetArtistsSO;
 import com.dostojic.theaterserver.so.artist.SaveArtistSO;
 import com.dostojic.theaterserver.so.artist.UpdateArtistSO;
 import com.dostojic.theaterserver.so.login.GetUsersSO;
 import com.dostojic.theaterserver.so.login.LoginSO;
 import com.dostojic.theaterserver.so.performance.GetAllPerformances;
+import com.dostojic.theaterserver.so.performance.GetPerformancesForPlayOnStage;
 import com.dostojic.theaterserver.so.performance.SavePerformanceOperation;
 import com.dostojic.theaterserver.so.play.DeletePlaySO;
 import com.dostojic.theaterserver.so.play.GetPlaySO;
+import com.dostojic.theaterserver.so.play.GetPlaysByName;
+import com.dostojic.theaterserver.so.play.GetPlaysForStage;
 import com.dostojic.theaterserver.so.play.LoadArtistForPlaySO;
 import com.dostojic.theaterserver.so.play.SavePlayAndArtistsSO;
+import com.dostojic.theaterserver.so.play.UpdatePlayAndArtistsSO;
 import com.dostojic.theaterserver.so.stage.GetStagesOperation;
 import com.dostojic.theaterserver.so.stage.SaveStageWithSeatsOperation;
 import com.dostojic.theaterserver.so.ticket.GetTicketsSO;
@@ -77,7 +82,12 @@ public class Controller {
         GetArtistsSO operation = new GetArtistsSO();
         operation.execute();
         return operation.getArtists();
-        
+    }
+
+    public List<Artist> getArtistsByName(String[] data) throws Exception {
+        GetArtistsByNameSO operation = new GetArtistsByNameSO();
+        operation.execute(data);
+        return operation.getArtists();
     }
 
     public void update(Artist artist) throws Exception {
@@ -95,9 +105,26 @@ public class Controller {
         operation.execute(play, listArtistPlay);
     }
 
+    public void update(Play play, List<ArtistPlayX> listArtistPlay) throws Exception{
+        UpdatePlayAndArtistsSO operation = new UpdatePlayAndArtistsSO();
+        operation.execute(play, listArtistPlay);
+    }
+
     public List<Play> getPlays() throws Exception{
         GetPlaySO operation = new GetPlaySO();
         operation.execute();
+        return operation.getPlays();
+    }
+    
+    public List<Play> getPlaysByName(String name) throws Exception{
+        GetPlaysByName operation = new GetPlaysByName();
+        operation.execute(name);
+        return operation.getPlays();
+    }
+
+    public List<Play> getPlays(Stage s) throws Exception{
+        GetPlaysForStage operation = new GetPlaysForStage();
+        operation.execute(s);
         return operation.getPlays();
     }
 
@@ -126,6 +153,12 @@ public class Controller {
     public List<Performance> getPerformances() throws Exception {
         GetAllPerformances operation = new GetAllPerformances();
         operation.execute();
+        return operation.getPerformances();
+    }
+    
+    public List<Performance> getPerformances(Play p, Stage s) throws Exception {
+        GetPerformancesForPlayOnStage operation = new GetPerformancesForPlayOnStage();
+        operation.execute(p,s);
         return operation.getPerformances();
     }
     

@@ -319,7 +319,6 @@ public abstract class GenericDao<Dto> {
     }
 
     public List<Dto> loadList(String whereCondition, String orderBy, int offset, int count) {
-        long startTime1 = System.nanoTime();
         final List<Dto> list = new ArrayList<>();
         String sql = makeSql(whereCondition, orderBy, offset, count);
 
@@ -328,9 +327,6 @@ public abstract class GenericDao<Dto> {
             loadFromResultSet(rs, dto);
             list.add(dto);
         });
-long endTime1 = System.nanoTime();
-long duration1 = endTime1 - startTime1;
-        System.out.println("DEBUG ::: INFO : duration: " + duration1 / 1000000);
         return list;
     }
 

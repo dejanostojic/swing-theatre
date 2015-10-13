@@ -27,12 +27,12 @@ public class SavePlayAndArtistsSO extends GenericSO{
     @Override
     protected void executeOperation(Object... args) throws Exception {
         Play play = (Play) args[0];
-        PlayDao.getInstance().insert(play);
+        PlayDao.getInstance().updateOrInsert(play);
         long playId = play.getId();
         List<ArtistPlayX> artistPlayList = (List<ArtistPlayX>) args[1];
         for (ArtistPlay ap: artistPlayList){
             ap.setPlayId(playId);
-            ArtistPlayDao.getInstance().insert(ap);
+            ArtistPlayDao.getInstance().updateOrInsert(ap);
         }
     }
     

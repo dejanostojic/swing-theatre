@@ -17,5 +17,14 @@
             <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/db/Database.java</file>
             <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/FServer.java</file>
         </group>
+        <group>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/so/artist/GetArtistsSO.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/ThreadInformTicketReserved.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/controller/Controller.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/so/GenericSO.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/so/artist/GetArtistsByNameSO.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/so/play/GetPlaysForStage.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreserver/src/com/dostojic/theaterserver/server/ClientThread.java</file>
+        </group>
     </open-files>
 </project-private>
