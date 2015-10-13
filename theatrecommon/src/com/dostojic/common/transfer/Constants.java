@@ -30,5 +30,10 @@ public interface Constants {
     public static final int LOG_IN_USER = 18;
     public static final int RESERVE_TICKET = 19;
     public static final int FREE_RESERVED_TICKET = 20;
+    public static final int GET_PLAYS_FOR_STAGE = 21;
+    public static final int GET_PERFORMANCES_FOR_PLAY_STAGE = 22;
+    public static final int UPDATE_PLAY_AND_ARTISTS = 23;
+    public static final int GET_PLAYS_BY_NAME = 24;
+    public static final int GET_ARTISTS_BY_NAME = 25;
     
 }
