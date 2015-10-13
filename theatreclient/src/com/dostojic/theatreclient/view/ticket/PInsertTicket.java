@@ -18,12 +18,11 @@ public class PInsertTicket extends javax.swing.JPanel {
      */
     public PInsertTicket() {
         initComponents();
-        fillComboScene();
-        fillComboShows();
-        fillComboPerformances();
         setTicketsTableModel();
-//        getTickets();
-        fillTableTickets();
+        fillComboStage();
+//        fillComboPlays();
+//        fillComboPerformances();
+//        fillTableTickets();
         attachEventListeners();
     }
 
@@ -37,7 +36,7 @@ public class PInsertTicket extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        comboScene = new javax.swing.JComboBox();
+        comboStage = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         comboPlays = new javax.swing.JComboBox();
@@ -56,10 +55,10 @@ public class PInsertTicket extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
-        comboScene.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        comboScene.addActionListener(new java.awt.event.ActionListener() {
+        comboStage.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboStage.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboSceneActionPerformed(evt);
+                comboStageActionPerformed(evt);
             }
         });
 
@@ -135,7 +134,7 @@ public class PInsertTicket extends javax.swing.JPanel {
                     .addComponent(jLabel3))
                 .addGap(27, 27, 27)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(comboScene, 0, 264, Short.MAX_VALUE)
+                    .addComponent(comboStage, 0, 264, Short.MAX_VALUE)
                     .addComponent(comboPlays, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(comboPerformance, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(208, 208, 208)
@@ -149,7 +148,7 @@ public class PInsertTicket extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(comboScene, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboStage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -231,9 +230,9 @@ public class PInsertTicket extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void comboSceneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSceneActionPerformed
+    private void comboStageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboStageActionPerformed
         
-    }//GEN-LAST:event_comboSceneActionPerformed
+    }//GEN-LAST:event_comboStageActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         InsertTicketController.saveTickets(comboPerformance,tableTickets);
@@ -242,7 +241,7 @@ public class PInsertTicket extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox comboPerformance;
     private javax.swing.JComboBox comboPlays;
-    private javax.swing.JComboBox comboScene;
+    private javax.swing.JComboBox comboStage;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -259,17 +258,19 @@ public class PInsertTicket extends javax.swing.JPanel {
     private javax.swing.JTable tableTickets;
     // End of variables declaration//GEN-END:variables
 
-    private void fillComboScene() {
-        InsertTicketController.fillComboScene(comboScene);
+    private void fillComboStage() {
+        InsertTicketController.fillComboScene(comboStage);
+        fillComboPlays();
     }
 
-    private void fillComboShows() {
-        InsertTicketController.fillComboPlays(comboPlays);
+    private void fillComboPlays() {
+        InsertTicketController.fillComboPlaysOnStage(comboPlays, comboStage);
+        fillComboPerformances();
     }
 
     private void fillComboPerformances() {
-        InsertTicketController.fillComboPerf(comboPerformance);
-        
+        InsertTicketController.fillComboPerf(comboPerformance, comboPlays, comboStage);
+        fillTableTickets();
     }
 
 //    private void getTickets() {
@@ -289,10 +290,12 @@ public class PInsertTicket extends javax.swing.JPanel {
             fillTableTickets();
         });
         comboPlays.addActionListener((ActionEvent e) -> {
-            fillTableTickets();
+            fillComboPerformances();
         });
-        comboScene.addActionListener((ActionEvent e) -> {
-            fillTableTickets();
+        comboStage.addActionListener((ActionEvent e) -> {
+            System.out.println("ACTION LISTENER STAGE!!!");
+            fillComboPlays();
         });
+        
     }
 }

@@ -109,7 +109,6 @@ public class InsertTicketTableModel extends AbstractTableModel {
         
     public Color getColor(int row, int col){
         int status = getStatus(row, col);
-        System.out.println("RED :" +row+", col: " + col + ", status: " + status);
         switch (status){
             case TicketStatus.STATUS_FREE:
                 return Color.GREEN;

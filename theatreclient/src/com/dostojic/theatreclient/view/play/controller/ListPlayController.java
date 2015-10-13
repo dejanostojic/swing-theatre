@@ -24,6 +24,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -62,7 +63,7 @@ public class ListPlayController {
                         int modelRow = Integer.valueOf(e.getActionCommand());
                         PlayTableModel ptMpodel = (PlayTableModel) table.getModel();
                         Play playAtIndex = ptMpodel.getPlayAtIndex(modelRow);
-                        PInsertPlay pInsertPlay = new PInsertPlay();
+                        PInsertPlay pInsertPlay = new PInsertPlay(tablePlay);
                         pInsertPlay.loadPlay(playAtIndex);
                         JDialog di = new JDialog((JFrame)null,"Izmeni predstavu", true);
                         di.add(pInsertPlay);
@@ -80,6 +81,23 @@ public class ListPlayController {
                 setTableModel(tablePlays, (List<Play>) sto.getData());
             } else {
                 JOptionPane.showMessageDialog(null, sto.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(ListPlayController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ListPlayController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void fillTable(JTable tablePlays, JTextField textName) {
+        try {
+            String name = textName.getText();
+            TransferObject sto = Controller.getInstance().getPlaysByName(name);
+            if (sto.isOperationSucess()){
+                PlayTableModel ptm = (PlayTableModel) tablePlays.getModel();
+                ptm.setPlays((List<Play>) sto.getData());
+            } else {
+                JOptionPane.showMessageDialog(tablePlays, sto.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
             }
         } catch (IOException ex) {
             Logger.getLogger(ListPlayController.class.getName()).log(Level.SEVERE, null, ex);

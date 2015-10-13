@@ -14,6 +14,7 @@ import com.dostojic.theatreclient.view.play.PArtistList;
 import com.dostojic.theatreclient.view.play.model.ArtistListModel;
 import com.dostojic.theatreclient.view.play.model.ArtistPlayTableModel;
 import com.dostojic.common.transfer.TransferObject;
+import com.dostojic.theatreclient.view.play.model.PlayTableModel;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -72,22 +74,28 @@ public class InsertPlayController {
         
     }
 
-    public static void save(JTextField editTitle, JTextField editLength, JTextArea textAbout, JTable tableArtistRole) {
+    public static void save(JTextField editTitle, JTextField editLength, JTextArea textAbout, JTable tableArtistRole, PlayTableModel tablePlays, boolean newData, Play play) {
         String title = editTitle.getText().trim();
         String about = textAbout.getText().trim();
         ArtistPlayTableModel model = (ArtistPlayTableModel) tableArtistRole.getModel();
         List<ArtistPlayX> artistPlayList = model.getArtistPlayList();
-        Play play = new Play();
         play.setTitle(title);
         play.setAbout(about);
         try {
-            TransferObject sto = Controller.getInstance().savePlay(play, artistPlayList);
+            TransferObject sto;
+            if(newData){
+                sto = Controller.getInstance().savePlay(play, artistPlayList);
+            }else{
+                sto = Controller.getInstance().updatePlay(play, artistPlayList);
+            }
+             
             if (sto.isOperationSucess()){
                 JOptionPane.showMessageDialog(null, sto.getMessage(), "Uspešno sačuvana predstava", JOptionPane.INFORMATION_MESSAGE);
                 editTitle.setText("");
                 editLength.setText("");
                 textAbout.setText("");
                 tableArtistRole.removeAll();
+                tablePlays.refreshTableData();
                 
             }else{
                 JOptionPane.showMessageDialog(null, sto.getMessage(), "Greška pri čuvanju predstava", JOptionPane.ERROR_MESSAGE);

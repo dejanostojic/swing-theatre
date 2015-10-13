@@ -22,6 +22,7 @@ import javax.swing.Action;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
@@ -77,9 +78,7 @@ public class ListController {
             } else {
                 JOptionPane.showMessageDialog(null, "Nastala je greska pri popunjavanju tabele.", "Greška", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (IOException ex) {
-            Logger.getLogger(ListController.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(ListController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -87,5 +86,24 @@ public class ListController {
     public static void delete(Artist artist) throws Exception {
         TransferObject to = Controller.getInstance().delete(artist);
         JOptionPane.showMessageDialog(null, to.getMessage());
+    }
+
+    public static void fillTable(JTable tableArtists, JTextField jTextField1, JTextField jTextField2) {
+        try {
+            TransferObject artistsSTO = Controller.getInstance().getArtists(jTextField1.getText().trim(), jTextField2.getText().trim());
+            ArtistTableModel tableModel = (ArtistTableModel) tableArtists.getModel();
+            if (artistsSTO.isOperationSucess()){
+                List<Artist> la = (List<Artist>) artistsSTO.getData();
+                tableModel.setArtists(la);
+                if (la.size() == 0){
+                    JOptionPane.showMessageDialog(tableArtists, "Sistem ne može da nadje umetnike po zadatoj vrednosti.", "Greška", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(tableArtists, "Nastala je greska pri popunjavanju tabele.", "Greška", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(ListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

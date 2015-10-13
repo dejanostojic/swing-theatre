@@ -52,9 +52,10 @@ public class PPlay extends javax.swing.JPanel {
     
     private void addPanels(){
         ImageIcon icon = null;
-        pInsertPlay = new PInsertPlay();
-        tabbedPane.addTab("Nova predstava", icon, pInsertPlay, "Ovde ubaci novu predstavu");
+        
         pListPlays = new PListPlays();
+        pInsertPlay = new PInsertPlay(pListPlays.getTablePlays());
+        tabbedPane.addTab("Nova predstava", icon, pInsertPlay, "Ubaci novu predstavu");
         tabbedPane.addTab("Lista predstava", icon, pListPlays, "Prikaži postojeće predstave");
     }
     

@@ -280,12 +280,6 @@ public class FMain extends javax.swing.JFrame {
     }
     
     private void addPanels(){
-        ImageIcon icon = null;
-      /*  pInsertPlay = new PInsertPlay();
-        tabbedPane.addTab("Nova predstava", icon, pInsertPlay, "Ovde ubaci novu predstavu");
-        pListPlays = new PListPlays();
-        tabbedPane.addTab("Lista predstava", icon, pListPlays, "Prikaži postojeće predstave");
-        * */
         pPlay = new PPlay();
         pPlay.setVisible(true);
         pCard.add(pPlay,P_PLAY);

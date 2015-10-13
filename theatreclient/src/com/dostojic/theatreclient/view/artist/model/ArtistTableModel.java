@@ -63,12 +63,10 @@ public class ArtistTableModel extends AbstractTableModel{
             default:return false;
         }
     }
-    
-    
-    
-    
-    
-    
-    
+
+    public void setArtists(List<Artist> artists) {
+        this.artists = artists;
+        fireTableDataChanged();
+    }
     
 }

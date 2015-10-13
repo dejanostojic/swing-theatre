@@ -72,6 +72,11 @@ public class InsertController {
          try {
              String fName = firstName.getText().trim();
              String lName = lastName.getText().trim();
+             if (fName.isEmpty() || lName.isEmpty()){
+                 JOptionPane.showMessageDialog(panel, "Ime i prezime su obavezna polja", "Greška pri čuvanju umetnika", JOptionPane.ERROR_MESSAGE);
+                 return;
+             }
+             
              String artistKind = (String) kind.getSelectedItem();
              String aboutArtist = about.getText().trim();
              Artist artist = new Artist();
@@ -87,7 +92,8 @@ public class InsertController {
              }else{
                 to = Controller.getInstance().saveArtist(artist);
              }
-             JOptionPane.showMessageDialog(panel, to.getMessage());
+             
+             JOptionPane.showMessageDialog(panel, to.getMessage(), "Čuvannje umetnika", to.isOperationSucess() ? JOptionPane.INFORMATION_MESSAGE :  JOptionPane.ERROR_MESSAGE);
              
          } catch (IOException ex) {
              Logger.getLogger(InsertController.class.getName()).log(Level.SEVERE, null, ex);

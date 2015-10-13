@@ -109,6 +109,19 @@ public class Controller {
         return (TransferObject) inSocket.readObject();
     }
 
+    
+    public TransferObject getArtists(String firstName, String lastName) throws IOException, ClassNotFoundException {
+        TransferObject to = new TransferObject();
+        to.setOperation(Constants.GET_ARTISTS_BY_NAME);
+        String[] data = {firstName, lastName};
+        to.setData(data);
+        outSocket = new ObjectOutputStream(socket.getOutputStream());
+        outSocket.writeObject(to);
+        
+        inSocket = new ObjectInputStream(socket.getInputStream());
+        return (TransferObject) inSocket.readObject();
+    }
+      
     public TransferObject updateArtist(Artist artist) throws IOException, ClassNotFoundException {
         TransferObject to = new TransferObject();
         to.setOperation(Constants.UPDATE_ARTIST);
@@ -144,10 +157,46 @@ public class Controller {
         inSocket = new ObjectInputStream(socket.getInputStream());
         return (TransferObject) inSocket.readObject();
     }
+    
+    public TransferObject updatePlay(Play play, List<ArtistPlayX> artistPlayList) throws IOException, ClassNotFoundException{
+        Object [] array = new Object[2];
+        array[0] = play;
+        array[1] = artistPlayList;
+        TransferObject cto = new TransferObject();
+        cto.setData(array);
+        cto.setOperation(Constants.UPDATE_PLAY_AND_ARTISTS);
+        outSocket = new ObjectOutputStream(socket.getOutputStream());
+        outSocket.writeObject(cto);
+        
+        inSocket = new ObjectInputStream(socket.getInputStream());
+        return (TransferObject) inSocket.readObject();
+    }
 
     public TransferObject getPlays() throws IOException, ClassNotFoundException {
         TransferObject cto = new TransferObject();
         cto.setOperation(Constants.GET_PLAYS);
+        outSocket = new ObjectOutputStream(socket.getOutputStream());
+        outSocket.writeObject(cto);
+        
+        inSocket = new ObjectInputStream(socket.getInputStream());
+        return (TransferObject) inSocket.readObject();
+    }
+    
+    public TransferObject getPlaysByName(String name) throws IOException, ClassNotFoundException {
+        TransferObject cto = new TransferObject();
+        cto.setOperation(Constants.GET_PLAYS_BY_NAME);
+        cto.setData(name);
+        outSocket = new ObjectOutputStream(socket.getOutputStream());
+        outSocket.writeObject(cto);
+        
+        inSocket = new ObjectInputStream(socket.getInputStream());
+        return (TransferObject) inSocket.readObject();
+    }
+
+    public TransferObject getPlays(Stage s) throws IOException, ClassNotFoundException {
+        TransferObject cto = new TransferObject();
+        cto.setOperation(Constants.GET_PLAYS_FOR_STAGE);
+        cto.setData(s);
         outSocket = new ObjectOutputStream(socket.getOutputStream());
         outSocket.writeObject(cto);
         
@@ -250,6 +299,26 @@ public class Controller {
         try {
             TransferObject cto = new TransferObject();
             cto.setOperation(Constants.GET_PERFORMANCES);
+            outSocket = new ObjectOutputStream(socket.getOutputStream());
+            outSocket.writeObject(cto);
+
+            inSocket = new ObjectInputStream(socket.getInputStream());
+            sto = (TransferObject) inSocket.readObject();
+        } catch (IOException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return sto;
+    }
+
+    public TransferObject getPerformances(Play p, Stage s) {
+        TransferObject sto = new TransferObject();
+        try {
+            TransferObject cto = new TransferObject();
+            cto.setOperation(Constants.GET_PERFORMANCES_FOR_PLAY_STAGE);
+            Object[] ps = {p,s};
+            cto.setData(ps);
             outSocket = new ObjectOutputStream(socket.getOutputStream());
             outSocket.writeObject(cto);
 
@@ -377,5 +446,7 @@ public class Controller {
             Logger.getLogger(Controller.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+  
 
 }

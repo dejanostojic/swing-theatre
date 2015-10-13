@@ -15,7 +15,7 @@ import java.util.Map;
 public class LocaleContext implements java.io.Serializable{
     
     private LocaleContext(){
-        localeCode = "ci";
+        localeCode = "sr";
     }
     
     private static LocaleContext instance;

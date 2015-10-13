@@ -47,7 +47,7 @@ public class LoginController {
 
                     FMain.getInstance().setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(dialog, "Pogrešno korisničko ime, ili lizinka!", "Greška!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(dialog, "Pogrešno korisničko ime, ili lozinka!", "Greška!", JOptionPane.ERROR_MESSAGE);
                 }
             }else{
                 JOptionPane.showMessageDialog(dialog, sto.getMessage() != null ?sto.getMessage().toString() : "Greška", "Greška!", JOptionPane.ERROR_MESSAGE);

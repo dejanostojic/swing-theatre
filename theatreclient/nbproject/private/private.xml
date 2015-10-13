@@ -14,5 +14,12 @@
             <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreclient/src/com/dostojic/theatreclient/view/ticket/controller/InsertTicketController.java</file>
             <file>file:/home/dostojic/Documents/NetBeans8Projects/swing-theatre/theatreclient/src/com/dostojic/theatreclient/controller/Controller.java</file>
         </group>
+        <group>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreclient/src/com/dostojic/theatreclient/view/artist/PListArtists.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreclient/src/com/dostojic/theatreclient/controller/Controller.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreclient/src/com/dostojic/theatreclient/view/artist/FArtist.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreclient/src/com/dostojic/theatreclient/view/artist/controller/ListController.java</file>
+            <file>file:/C:/Users/dostojic/Documents/NetBeansProjects/psproj/swing-theatre/theatreclient/src/com/dostojic/theatreclient/view/artist/model/ArtistTableModel.java</file>
+        </group>
     </open-files>
 </project-private>

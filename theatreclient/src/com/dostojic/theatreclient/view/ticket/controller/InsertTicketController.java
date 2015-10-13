@@ -64,7 +64,7 @@ public class InsertTicketController {
             if (sto.isOperationSucess()) {
                 List<Play> plays = (List<Play>) sto.getData();
                 if (plays != null) {
-                    DefaultComboBoxModel<Play> dcm = new DefaultComboBoxModel<Play>();
+                    DefaultComboBoxModel<Play> dcm = new DefaultComboBoxModel<>();
                     for (Play p : plays) {
                         dcm.addElement(p);
                     }
@@ -80,8 +80,33 @@ public class InsertTicketController {
             Logger.getLogger(InsertTicketController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static void fillComboPlaysOnStage(JComboBox comboPlays, JComboBox comboScene) {
+        try {
+            comboPlays.removeAllItems();
+            Stage stage = (Stage) comboScene.getSelectedItem();
+            TransferObject sto = Controller.getInstance().getPlays(stage);
+            if (sto.isOperationSucess()) {
+                List<Play> plays = (List<Play>) sto.getData();
+                if (plays != null) {
+                    DefaultComboBoxModel<Play> dcm = new DefaultComboBoxModel<>();
+                    for (Play p : plays) {
+                        dcm.addElement(p);
+                    }
+                    comboPlays.setModel(dcm);
 
-    public static void fillComboPerf(JComboBox comboPerformance) {
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, sto.getMessage(), "Greška", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(InsertTicketController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(InsertTicketController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void fillComboPerf(JComboBox comboPerformance, JComboBox comboPlays, JComboBox comboScene) {
         comboPerformance.removeAllItems();
         comboPerformance.setRenderer(new  BasicComboBoxRenderer(){
 
@@ -89,19 +114,28 @@ public class InsertTicketController {
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                 Performance perf = (Performance) value;
                 super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus); //To change body of generated methods, choose Tools | Templates.
-                setText(perf.getStartDate() + " " + perf.getStartTime());
+                if (perf != null){
+                    setText(perf.getStartDate() + " " + perf.getStartTime());
+                }
                 return this;
             }
         
         });
         
+        System.out.println("combo comboPlays: " + (Play)comboPlays.getSelectedItem());
+        System.out.println("combo comboScene: " + (Stage)comboScene.getSelectedItem());
+        if ((Play)comboPlays.getSelectedItem() == null || (Stage)comboScene.getSelectedItem() == null){
+            return;
+        }
         
-        TransferObject sto = Controller.getInstance().getPerformances();
+        TransferObject sto = Controller.getInstance().getPerformances((Play)comboPlays.getSelectedItem(), (Stage) comboScene.getSelectedItem());
         if (sto.isOperationSucess()) {
             List<Performance> performances = (List<Performance>) sto.getData();
             if (performances != null) {
+                
                 DefaultComboBoxModel<Performance> dcm = new DefaultComboBoxModel<>();
                 for (Performance p : performances) {
+                    System.out.println("PERFORMANCE: " + p);
                     dcm.addElement(p);
                 }
                 comboPerformance.setModel(dcm);
@@ -148,14 +182,16 @@ public class InsertTicketController {
         Performance perf = (Performance) comboPerformance.getSelectedItem();
         if (perf == null) {
             System.out.println("EMPTY PERFORMANCE");
+            tableTickets.setVisible(false);
             return;
         }
         TransferObject sto = Controller.getInstance().getTickets(perf);
         if (sto.isOperationSucess()) {
+            tableTickets.setVisible(true);
             final InsertTicketTableModel model = (InsertTicketTableModel) tableTickets.getModel();
             List<TicketX> tickets = (List<TicketX>) sto.getData();
             
-            System.out.println("DEB>UGG :: INFO ::: TICKETS: " + tickets);
+//            System.out.println("DEB>UGG :: INFO ::: TICKETS: " + tickets);
             
 //            tickets.parallelStream().forEach((ticket) -> {
 //                ticket.setPrice(perf.getPrice());

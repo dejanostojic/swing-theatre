@@ -5,7 +5,12 @@
 package com.dostojic.theatreclient.view.play.model;
 
 import com.dostojic.common.model.Play;
+import com.dostojic.common.transfer.TransferObject;
+import com.dostojic.theatreclient.controller.Controller;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
 
 /**
@@ -78,5 +83,43 @@ public class PlayTableModel extends AbstractTableModel{
     public Play getPlayAtIndex(int index){
         return plays.get(index);
     }
+    
+    public void addNewPlay(Play p){
+        int size = plays.size();
+        plays.add(p);
+        fireTableRowsInserted(size, size);
+    }
+    
+    public void updatePlay(Play p){
+        int counter = 0;
+        for (Play pInList : plays){
+            if (p.getId() == pInList.getId()){
+                pInList = p;
+                fireTableRowsUpdated(counter, counter);
+                break;
+            }
+        }
+        
+        
+    }
+    
+    public void refreshTableData(){
+        try {
+            TransferObject sto = Controller.getInstance().getPlays();
+            if (sto.isOperationSucess()){
+                plays = (List<Play>) sto.getData();
+                fireTableDataChanged();
+            }
+        } catch (IOException | ClassNotFoundException ex) {
+            Logger.getLogger(PlayTableModel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void setPlays(List<Play> plays) {
+        this.plays = plays;
+        fireTableDataChanged();
+    }
+   
+   
     
 }

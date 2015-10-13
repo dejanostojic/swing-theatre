@@ -7,6 +7,10 @@ package com.dostojic.theatreclient.view.play;
 import com.dostojic.common.model.Play;
 import com.dostojic.theatreclient.view.login.controller.LoginController;
 import com.dostojic.theatreclient.view.play.controller.InsertPlayController;
+import com.dostojic.theatreclient.view.play.model.PlayTableModel;
+import java.awt.Window;
+import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,15 +23,19 @@ public class PInsertPlay extends javax.swing.JPanel {
      */
     
     private boolean newData;
-    
-    public PInsertPlay() {
+    private JTable tablePlays;
+    private Play play;
+    public PInsertPlay(JTable tablePlays) {
         newData = true;
+        this.tablePlays = tablePlays;
+        play = new Play();
         initComponents();
-        labelUserName.setText("Korisnik: " + LoginController.getCurrentUser().getFirstName());
+        labelUserName.setText("Korisnik: " + LoginController.getCurrentUser() != null ? LoginController.getCurrentUser().getFirstName() : "not logged in");
         setTableModel();
     }
     
-    public PInsertPlay(Play p){
+    public PInsertPlay(Play p, JTable tablePlays){
+        this.tablePlays = tablePlays;
         loadPlay(p);
     }
     
@@ -149,7 +157,10 @@ public class PInsertPlay extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buttonSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonSaveActionPerformed
-        InsertPlayController.save(editTitle, editLength, textAbout, tableArtistRole);
+        InsertPlayController.save(editTitle, editLength, textAbout, tableArtistRole, (PlayTableModel) tablePlays.getModel(), newData, play);
+        if (!newData){
+            SwingUtilities.getWindowAncestor(this).dispose();
+        }
     }//GEN-LAST:event_buttonSaveActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -175,6 +186,12 @@ public class PInsertPlay extends javax.swing.JPanel {
         textAbout.setText(p.getAbout());
         buttonSave.setText("Sačuvaj izmene");
         newData = false;
+        play = p;
         InsertPlayController.fillTableArtistRole(tableArtistRole, p.getId());
     }
+
+    public void setTablePlays(JTable tablePlays) {
+        this.tablePlays = tablePlays;
+    }
+    
 }
